@@ -40,14 +40,16 @@ const SortFilterButton = styled(FilterBtnsCommonStyle)`
 const { GUCCI, NIKE, LOUIS_VUITTON, STONE_ISLAND } = brands;
 
 class FilterBtns extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    };
+  }
+  setIsOpen = () =>
+    this.setState({ ...this.state, isOpen: !this.state.isOpen });
   render() {
-    const {
-      popupVisible,
-      brandButtonHandler,
-      onChangeHandler,
-      setPopupState,
-      selectedBrands,
-    } = this.props;
+    const { brandButtonHandler, onChangeHandler, selectedBrands } = this.props;
     const isActive = name => {
       return selectedBrands.length > 0 && selectedBrands.includes(name);
     };
@@ -87,13 +89,13 @@ class FilterBtns extends Component {
           <SortFilterButton
             name={'btn_popup_filter'}
             ariaLabel={'popup_sort_filter'}
-            onClick={setPopupState}
+            onClick={this.setIsOpen}
           >
             <FaFilter />
           </SortFilterButton>
           <FilterPopup
-            popupVisible={popupVisible}
-            setPopupState={setPopupState}
+            isOpen={this.state.isOpen}
+            setIsOpen={this.setIsOpen}
             onChangeHandler={onChangeHandler}
           />
         </div>

@@ -5,7 +5,7 @@ import Button from 'components/common/Button';
 import { InputGroup } from 'components/recentList';
 
 const FilterPopupStyle = styled.div`
-  display: ${({ popupVisible }) => (popupVisible ? 'flex' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   position: absolute;
   top: 40px;
   right: 0px;
@@ -30,13 +30,13 @@ const CloseButtonStyle = styled(Button)`
 
 class FilterPopup extends Component {
   render() {
-    const { popupVisible, setPopupState, onChangeHandler } = this.props;
+    const { isOpen, setIsOpen, onChangeHandler } = this.props;
     return (
-      <FilterPopupStyle popupVisible={popupVisible}>
+      <FilterPopupStyle isOpen={isOpen}>
         <CloseButtonStyle
           name={'btn_close'}
           ariaLabel={'close_popup'}
-          onClick={setPopupState}
+          onClick={setIsOpen}
         >
           <IoClose />
         </CloseButtonStyle>

@@ -140,7 +140,6 @@ class RecentListPage extends Component {
     } else {
       this.makeClickedItemFiltered(!checkBoxState);
     }
-    this.setPopupState();
   };
 
   sortWithPrice = items => items.sort((a, b) => a.price - b.price);
@@ -159,7 +158,6 @@ class RecentListPage extends Component {
         ...state,
         clickedItems: this.sortWithPrice(state.clickedItems),
       }));
-    this.setPopupState();
   };
 
   checkBoxHandler = e => {
@@ -178,16 +176,6 @@ class RecentListPage extends Component {
       default:
         break;
     }
-  };
-
-  /* 필터 팝업 */
-  setPopupState = () => {
-    // 필터 팝업의 state 를 관리하는 함수
-
-    this.setState(state => ({
-      ...state,
-      popupVisible: !state.popupVisible,
-    }));
   };
 
   getClickedItem = () => {
@@ -228,8 +216,6 @@ class RecentListPage extends Component {
       <>
         <Filter
           brandButtonHandler={this.brandButtonHandler}
-          popupVisible={this.state.popupVisible}
-          setPopupState={this.setPopupState}
           checkBoxHandler={this.checkBoxHandler}
           selectedBrands={this.state.selectedBrands}
         />
