@@ -35,7 +35,7 @@ class RecentListPage extends Component {
   getSortedLowPrice = () => {
     this.setState(state => ({
       ...state,
-      filteredItems: state.filteredItems.sort((a, b) => a.price - b.price),
+      filteredItems: [...state.filteredItems].sort((a, b) => a.price - b.price),
     }));
   };
 
