@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Filter, RecentProductList } from 'components/recentList';
+import Loading from 'components/common/Loading';
 import { localStorageHelper } from 'utils/localStorageHelper';
 import { localStorageKey } from 'utils/constants/localStorageKey';
 import { addUniqueData, getFilteredItems } from 'components/recentList/utils';
@@ -70,7 +71,7 @@ class RecentListPage extends Component {
           getSortedRecent={this.getSortedRecent}
           getSortedLowPrice={this.getSortedLowPrice}
         />
-        {isLoading && <div>로딩 중 입니다.</div>}
+        {isLoading && <Loading />}
         {!isLoading && filteredItems.length === 0 && (
           <div>아이템이 없습니다.</div>
         )}
