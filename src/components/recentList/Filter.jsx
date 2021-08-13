@@ -13,7 +13,12 @@ const FilterStyle = styled.div`
 
 class Filter extends Component {
   render() {
-    const { selectedFilters, setSelectedFilters } = this.props;
+    const {
+      selectedFilters,
+      setSelectedFilters,
+      getSortedRecent,
+      getSortedLowPrice,
+    } = this.props;
     return (
       <FilterStyle>
         <InputGroup
@@ -25,9 +30,10 @@ class Filter extends Component {
           관심 없는 상품 숨기기
         </InputGroup>
         <FilterBtns
-          onChangeHandler={true}
           selectedFilters={selectedFilters}
           setSelectedFilters={setSelectedFilters}
+          getSortedRecent={getSortedRecent}
+          getSortedLowPrice={getSortedLowPrice}
         />
       </FilterStyle>
     );

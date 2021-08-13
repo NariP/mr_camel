@@ -30,7 +30,12 @@ const CloseButtonStyle = styled(Button)`
 
 class FilterPopup extends Component {
   render() {
-    const { isOpen, setIsOpen, onChangeHandler } = this.props;
+    const { isOpen, setIsOpen, getSortedRecent, getSortedLowPrice } =
+      this.props;
+    const onChangeHandler = func => {
+      func();
+      setIsOpen();
+    };
     return (
       <FilterPopupStyle isOpen={isOpen}>
         <CloseButtonStyle
@@ -44,7 +49,7 @@ class FilterPopup extends Component {
           type={'radio'}
           name={'sort_filter'}
           value={'recent_view'}
-          onChangeHandler={onChangeHandler}
+          onChangeHandler={() => onChangeHandler(getSortedRecent)}
           useChecked={false}
         >
           최근 조회 순
@@ -53,7 +58,7 @@ class FilterPopup extends Component {
           type={'radio'}
           name={'sort_filter'}
           value={'row_price'}
-          onChangeHandler={onChangeHandler}
+          onChangeHandler={() => onChangeHandler(getSortedLowPrice)}
           useChecked={false}
         >
           낮은 가격 순

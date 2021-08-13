@@ -49,7 +49,12 @@ class FilterBtns extends Component {
   setIsOpen = () =>
     this.setState({ ...this.state, isOpen: !this.state.isOpen });
   render() {
-    const { onChangeHandler, selectedFilters, setSelectedFilters } = this.props;
+    const {
+      selectedFilters,
+      setSelectedFilters,
+      getSortedRecent,
+      getSortedLowPrice,
+    } = this.props;
     const isActive = name => {
       return selectedFilters.length > 0 && selectedFilters.includes(name);
     };
@@ -96,7 +101,8 @@ class FilterBtns extends Component {
           <FilterPopup
             isOpen={this.state.isOpen}
             setIsOpen={this.setIsOpen}
-            onChangeHandler={onChangeHandler}
+            getSortedRecent={getSortedRecent}
+            getSortedLowPrice={getSortedLowPrice}
           />
         </div>
       </FilterBtnsStyle>

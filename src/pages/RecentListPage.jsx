@@ -30,6 +30,12 @@ class RecentListPage extends Component {
     }));
     this.setFilteredItems();
   };
+  getSortedLowPrice = () =>
+    this.setState(state => ({
+      ...state,
+      filteredItems: state.filteredItems.sort((a, b) => a.price - b.price),
+    }));
+  getSortedRecent = () => this.setFilteredItems();
   getClickedItem = () => {
     // 로컬호스트에서 최근 본 아이템 데이터를 받아오는 함수
     const clickedItems =
@@ -61,6 +67,8 @@ class RecentListPage extends Component {
         <Filter
           selectedFilters={this.state.selectedFilters}
           setSelectedFilters={this.setSelectedFilters}
+          getSortedRecent={this.getSortedRecent}
+          getSortedLowPrice={this.getSortedLowPrice}
         />
         {isLoading && <div>로딩 중 입니다.</div>}
         {!isLoading && filteredItems.length === 0 && (
