@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import CurrentProduct from 'components/product/CurrentProduct';
 import ProductList from 'components/product/ProductList';
 import PRODUCTS from 'fixture/productsData';
+import { localStorageKey } from 'utils/constants/localStorageKey';
 
 class ProductPage extends Component {
   constructor(props) {
@@ -62,13 +63,17 @@ class ProductPage extends Component {
       });
     }
 
-    localStorage.setItem('viewed', JSON.stringify(this.state.clickedItem));
+    localStorage.setItem(
+      localStorageKey.VIEWD,
+      JSON.stringify(this.state.clickedItem),
+    );
   };
 
   componentDidMount = () => {
     const { clickedItem } = this.state;
 
-    const viewed = JSON.parse(localStorage.getItem('viewed')) || clickedItem;
+    const viewed =
+      JSON.parse(localStorage.getItem(localStorageKey.VIEWD)) || clickedItem;
 
     this.handleStateChange({ key: 'clickedItem', value: viewed });
   };

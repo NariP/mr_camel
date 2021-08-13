@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import { Filter, RecentProductList } from 'components/recentList';
-import { changeKoToEn } from '../utils/utilFunc';
+import { changeKoToEn } from 'utils/utilFunc';
+import { localStorageKey } from 'utils/constants/localStorageKey';
 
 class RecentListPage extends Component {
   constructor(props) {
@@ -179,7 +180,9 @@ class RecentListPage extends Component {
 
   getClickedItem = () => {
     // 로컬호스트에서 최근 본 아이템 데이터를 받아오는 함수
-    const clickedItems = JSON.parse(localStorage.getItem('viewed'));
+    const clickedItems = JSON.parse(
+      localStorage.getItem(localStorageKey.VIEWD),
+    );
 
     //실제 API가 있을 경우, 비동기로 들어올 것을 고려해 시뮬레이팅함.
     this.setState(state => ({
