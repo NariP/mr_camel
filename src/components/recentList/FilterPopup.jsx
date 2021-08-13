@@ -4,30 +4,6 @@ import styled from '@emotion/styled';
 import Button from 'components/common/Button';
 import { InputGroup } from 'components/recentList';
 
-const FilterPopupStyle = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
-  position: absolute;
-  top: 40px;
-  right: 0px;
-  background: white;
-  z-index: 100;
-  width: 150px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 0px 25px 0px;
-  box-shadow: 2px 1px 5px 2px rgba(160, 160, 160, 0.3);
-
-  button {
-    width: 30px;
-    margin-left: auto;
-  }
-`;
-
-const CloseButtonStyle = styled(Button)`
-  background: white;
-`;
-
 class FilterPopup extends Component {
   render() {
     const { isOpen, setIsOpen, getSortedRecent, getSortedLowPrice } =
@@ -67,5 +43,27 @@ class FilterPopup extends Component {
     );
   }
 }
+const FilterPopupStyle = styled.div`
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  background: white;
+  z-index: 100;
+  width: 150px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0px 25px 0px;
+  box-shadow: 2px 1px 5px 2px rgba(160, 160, 160, 0.3);
 
+  button {
+    width: 30px;
+    margin-left: auto;
+  }
+`;
+
+const CloseButtonStyle = styled(Button)`
+  background: white;
+`;
 export default FilterPopup;

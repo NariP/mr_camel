@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 
 import styled from '@emotion/styled';
 
+class List extends Component {
+  render() {
+    const { children } = this.props;
+
+    return <ListWrap>{children}</ListWrap>;
+  }
+}
 const ListWrap = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -13,13 +20,4 @@ const ListWrap = styled.ul`
     width: calc(48% - 20px);
   }
 `;
-
-class List extends Component {
-  render() {
-    const { children } = this.props;
-
-    return <ListWrap>{children}</ListWrap>;
-  }
-}
-
 export default List;

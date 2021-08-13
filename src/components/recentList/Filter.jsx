@@ -2,15 +2,6 @@ import React, { Component } from 'react';
 import styled from '@emotion/styled';
 import { FilterBtns, InputGroup } from 'components/recentList';
 
-const FilterStyle = styled.div`
-  position: relative;
-  margin-bottom: 20px;
-
-  & > div + div {
-    margin-top: 10px;
-  }
-`;
-
 class Filter extends Component {
   render() {
     const {
@@ -39,5 +30,14 @@ class Filter extends Component {
     );
   }
 }
+
+const FilterStyle = styled.div`
+  position: relative;
+  margin-bottom: 20px;
+
+  & > div + div {
+    margin-top: 10px;
+  }
+`;
 
 export default Filter;

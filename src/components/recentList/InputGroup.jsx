@@ -1,23 +1,6 @@
 import React, { Component } from 'react';
 import styled from '@emotion/styled';
 
-const InputGroupStyle = styled.div`
-  display: inline-block;
-
-  input,
-  label {
-    cursor: pointer;
-  }
-
-  & + & {
-    margin-top: 5px;
-  }
-
-  & > input + label {
-    margin-left: 5px;
-  }
-`;
-
 class InputGroup extends Component {
   render() {
     const { children, type, name, value, onChangeHandler, useChecked } =
@@ -37,5 +20,22 @@ class InputGroup extends Component {
     );
   }
 }
+
+const InputGroupStyle = styled.div`
+  display: inline-block;
+
+  input,
+  label {
+    cursor: pointer;
+  }
+
+  & + & {
+    margin-top: 5px;
+  }
+
+  & > input + label {
+    margin-left: 5px;
+  }
+`;
 
 export default InputGroup;
