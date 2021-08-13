@@ -11,7 +11,6 @@ class RecentListPage extends Component {
       clickedItems: [],
       filteredItems: [],
       selectedBrands: [],
-      popupVisible: false,
       checkBoxState: false,
     };
   }
