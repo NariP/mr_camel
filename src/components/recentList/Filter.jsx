@@ -7,7 +7,7 @@ class Filter extends Component {
     const {
       selectedFilters,
       setSelectedFilters,
-      getSortedRecent,
+      setFilteredItems,
       getSortedLowPrice,
     } = this.props;
     return (
@@ -23,7 +23,7 @@ class Filter extends Component {
         <FilterBtns
           selectedFilters={selectedFilters}
           setSelectedFilters={setSelectedFilters}
-          getSortedRecent={getSortedRecent}
+          setFilteredItems={setFilteredItems}
           getSortedLowPrice={getSortedLowPrice}
         />
       </FilterStyle>

@@ -22,41 +22,23 @@ class FilterBtns extends Component {
     const {
       selectedFilters,
       setSelectedFilters,
-      getSortedRecent,
+      setFilteredItems,
       getSortedLowPrice,
     } = this.props;
     const isActive = name => selectedFilters.includes(name);
     return (
       <FilterBtnsStyle>
         <div>
-          <BrandButtonStyle
-            name={GUCCI.EN}
-            active={isActive(GUCCI.EN)}
-            onClick={setSelectedFilters}
-          >
-            구찌
-          </BrandButtonStyle>
-          <BrandButtonStyle
-            name={NIKE.EN}
-            active={isActive(NIKE.EN)}
-            onClick={setSelectedFilters}
-          >
-            나이키
-          </BrandButtonStyle>
-          <BrandButtonStyle
-            name={LOUIS_VUITTON.EN}
-            active={isActive(LOUIS_VUITTON.EN)}
-            onClick={setSelectedFilters}
-          >
-            루이비통
-          </BrandButtonStyle>
-          <BrandButtonStyle
-            name={STONE_ISLAND.EN}
-            active={isActive(STONE_ISLAND.EN)}
-            onClick={setSelectedFilters}
-          >
-            스톤 아일랜드
-          </BrandButtonStyle>
+          {brandButtonsInfo.map(({ name, title }) => (
+            <BrandButtonStyle
+              key={name}
+              name={name}
+              active={isActive(name)}
+              onClick={setSelectedFilters}
+            >
+              {title}
+            </BrandButtonStyle>
+          ))}
         </div>
         <div>
           <SortFilterButton
@@ -69,7 +51,7 @@ class FilterBtns extends Component {
           <FilterPopup
             isOpen={this.state.isOpen}
             setIsOpen={this.setIsOpen}
-            getSortedRecent={getSortedRecent}
+            setFilteredItems={setFilteredItems}
             getSortedLowPrice={getSortedLowPrice}
           />
         </div>
@@ -77,6 +59,12 @@ class FilterBtns extends Component {
     );
   }
 }
+const brandButtonsInfo = [
+  { name: GUCCI['EN'], title: GUCCI['KO'] },
+  { name: NIKE['EN'], title: NIKE['KO'] },
+  { name: LOUIS_VUITTON['EN'], title: LOUIS_VUITTON['KO'] },
+  { name: STONE_ISLAND['EN'], title: STONE_ISLAND['KO'] },
+];
 const FilterBtnsStyle = styled.div`
   position: relative;
   display: flex;

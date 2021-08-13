@@ -6,12 +6,16 @@ import { InputGroup } from 'components/recentList';
 
 class FilterPopup extends Component {
   render() {
-    const { isOpen, setIsOpen, getSortedRecent, getSortedLowPrice } =
+    const { isOpen, setIsOpen, setFilteredItems, getSortedLowPrice } =
       this.props;
     const onChangeHandler = func => {
       func();
       setIsOpen();
     };
+    const inputInfo = [
+      { value: 'recent_view', title: '최근 조회 순', method: setFilteredItems },
+      { value: 'row_price', title: '낮은 가격 순', method: getSortedLowPrice },
+    ];
     return (
       <FilterPopupStyle isOpen={isOpen}>
         <CloseButtonStyle
@@ -21,24 +25,17 @@ class FilterPopup extends Component {
         >
           <IoClose />
         </CloseButtonStyle>
-        <InputGroup
-          type={'radio'}
-          name={'sort_filter'}
-          value={'recent_view'}
-          onChangeHandler={() => onChangeHandler(getSortedRecent)}
-          useChecked={false}
-        >
-          최근 조회 순
-        </InputGroup>
-        <InputGroup
-          type={'radio'}
-          name={'sort_filter'}
-          value={'row_price'}
-          onChangeHandler={() => onChangeHandler(getSortedLowPrice)}
-          useChecked={false}
-        >
-          낮은 가격 순
-        </InputGroup>
+        {inputInfo.map(({ value, title, method }) => (
+          <InputGroup
+            type={'radio'}
+            name={'sort_filter'}
+            value={value}
+            onChangeHandler={() => onChangeHandler(method)}
+            useChecked={false}
+          >
+            {title}
+          </InputGroup>
+        ))}
       </FilterPopupStyle>
     );
   }
