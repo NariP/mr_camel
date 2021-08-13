@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Filter, RecentProductList } from 'components/recentList';
-import { changeKoToEn } from 'utils/utilFunc';
+import { getEnglishName } from 'utils/getEnglishName';
 import { localStorageHelper } from 'utils/localStorageHelper';
 import { localStorageKey } from 'utils/constants/localStorageKey';
 
@@ -56,7 +56,7 @@ class RecentListPage extends Component {
     this.setState(state => ({
       ...state,
       filteredItems: state.clickedItems.filter(({ brand }) =>
-        state.selectedBrands.includes(changeKoToEn(brand)),
+        state.selectedBrands.includes(getEnglishName[brand]),
       ),
     }));
 
@@ -126,7 +126,7 @@ class RecentListPage extends Component {
           ...state,
           filteredItems: state.clickedItems.filter(
             ({ brand, isInterested }) =>
-              state.selectedBrands.includes(changeKoToEn(brand)) &&
+              state.selectedBrands.includes(getEnglishName[brand]) &&
               isInterested,
           ),
         }));

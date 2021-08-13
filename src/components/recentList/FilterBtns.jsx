@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import Button from 'components/common/Button';
 import { FilterPopup } from './index';
 import { colors } from 'styles/colors';
-import brands from 'utils/constants/brandName';
+import brands from 'utils/constants/brands';
 
 const FilterBtnsStyle = styled.div`
   position: relative;
