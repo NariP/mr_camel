@@ -32,7 +32,8 @@ class RecentListPage extends Component {
   };
   getClickedItem = () => {
     // 로컬호스트에서 최근 본 아이템 데이터를 받아오는 함수
-    const clickedItems = localStorageHelper.getItem(localStorageKey['VIEWD']);
+    const clickedItems =
+      localStorageHelper.getItem(localStorageKey['VIEWED']) ?? [];
 
     //실제 API가 있을 경우, 비동기로 들어올 것을 고려해 시뮬레이팅함.
     this.setState(state => ({
@@ -40,22 +41,12 @@ class RecentListPage extends Component {
       isLoading: true,
     }));
     setTimeout(() => {
-      // clickedItems 가 없을 때
-      !clickedItems &&
-        this.setState(state => ({
-          ...state,
-          isLoading: false,
-          clickedItems: [],
-        }));
-
-      // clickedItems 가 있을 때
-      clickedItems &&
-        this.setState(state => ({
-          ...state,
-          isLoading: false,
-          clickedItems,
-          filteredItems: clickedItems,
-        }));
+      this.setState(state => ({
+        ...state,
+        isLoading: false,
+        clickedItems,
+        filteredItems: clickedItems,
+      }));
     }, 700);
   };
 

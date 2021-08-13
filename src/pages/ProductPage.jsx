@@ -65,7 +65,7 @@ class ProductPage extends Component {
     }
 
     localStorageHelper.setItem(
-      localStorageKey['VIEWD'],
+      localStorageKey['VIEWED'],
       this.state.clickedItem,
     );
   };
@@ -74,7 +74,7 @@ class ProductPage extends Component {
     const { clickedItem } = this.state;
 
     const viewed =
-      localStorageHelper.getItem(localStorageKey['VIEWD']) || clickedItem;
+      localStorageHelper.getItem(localStorageKey['VIEWED']) || clickedItem;
 
     this.handleStateChange({ key: 'clickedItem', value: viewed });
   };

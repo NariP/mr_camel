@@ -1,3 +1,3 @@
 export const localStorageKey = {
-  VIEWD: 'viewd',
+  VIEWED: 'viewed',
 };
