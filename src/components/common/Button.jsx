@@ -16,7 +16,9 @@ class Button extends Component {
     return (
       <ButtonStyle
         type="button"
-        onClick={() => onClick(name)}
+        onClick={() => {
+          onClick(name);
+        }}
         name={name}
         aria-label={ariaLabel}
         className={className}

@@ -49,9 +49,9 @@ class FilterBtns extends Component {
   setIsOpen = () =>
     this.setState({ ...this.state, isOpen: !this.state.isOpen });
   render() {
-    const { brandButtonHandler, onChangeHandler, selectedBrands } = this.props;
+    const { onChangeHandler, selectedFilters, setSelectedFilters } = this.props;
     const isActive = name => {
-      return selectedBrands.length > 0 && selectedBrands.includes(name);
+      return selectedFilters.length > 0 && selectedFilters.includes(name);
     };
     return (
       <FilterBtnsStyle>
@@ -59,28 +59,28 @@ class FilterBtns extends Component {
           <BrandButtonStyle
             name={GUCCI.EN}
             active={isActive(GUCCI.EN)}
-            onClick={brandButtonHandler}
+            onClick={setSelectedFilters}
           >
             구찌
           </BrandButtonStyle>
           <BrandButtonStyle
             name={NIKE.EN}
             active={isActive(NIKE.EN)}
-            onClick={brandButtonHandler}
+            onClick={setSelectedFilters}
           >
             나이키
           </BrandButtonStyle>
           <BrandButtonStyle
             name={LOUIS_VUITTON.EN}
             active={isActive(LOUIS_VUITTON.EN)}
-            onClick={brandButtonHandler}
+            onClick={setSelectedFilters}
           >
             루이비통
           </BrandButtonStyle>
           <BrandButtonStyle
             name={STONE_ISLAND.EN}
             active={isActive(STONE_ISLAND.EN)}
-            onClick={brandButtonHandler}
+            onClick={setSelectedFilters}
           >
             스톤 아일랜드
           </BrandButtonStyle>

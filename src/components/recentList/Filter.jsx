@@ -13,25 +13,21 @@ const FilterStyle = styled.div`
 
 class Filter extends Component {
   render() {
-    const {
-      brandButtonHandler,
-      checkBoxHandler,
-      selectedBrands,
-    } = this.props;
+    const { selectedFilters, setSelectedFilters } = this.props;
     return (
       <FilterStyle>
         <InputGroup
           type={'checkbox'}
-          name={'hide_no_interest'}
-          value={'hide_no_interest'}
-          onChangeHandler={checkBoxHandler}
+          name={'isInterested'}
+          value={'isInterested'}
+          onChangeHandler={setSelectedFilters}
         >
           관심 없는 상품 숨기기
         </InputGroup>
         <FilterBtns
-          brandButtonHandler={brandButtonHandler}
-          onChangeHandler={checkBoxHandler}
-          selectedBrands={selectedBrands}
+          onChangeHandler={true}
+          selectedFilters={selectedFilters}
+          setSelectedFilters={setSelectedFilters}
         />
       </FilterStyle>
     );

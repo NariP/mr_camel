@@ -29,7 +29,7 @@ class InputGroup extends Component {
           name={name}
           id={value}
           value={value}
-          onChange={e => onChangeHandler(e)}
+          onChange={({ currentTarget: { value } }) => onChangeHandler(value)}
           checked={useChecked}
         />
         <label htmlFor={value}>{children}</label>

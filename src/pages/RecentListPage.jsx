@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import { Filter, RecentProductList } from 'components/recentList';
-import { getEnglishName } from 'utils/getEnglishName';
 import { localStorageHelper } from 'utils/localStorageHelper';
 import { localStorageKey } from 'utils/constants/localStorageKey';
+import { addUniqueData, getFilteredItems } from 'components/recentList/utils';
 
 class RecentListPage extends Component {
   constructor(props) {
@@ -12,173 +12,24 @@ class RecentListPage extends Component {
       isLoading: true,
       clickedItems: [],
       filteredItems: [],
-      selectedBrands: [],
-      checkBoxState: false,
+      selectedFilters: [],
     };
   }
-
-  /* brand 버튼 관련 기능 */
-  addSelectedBrandList = name => {
-    this.setState(state => ({
-      selectedBrands:
-        !state.selectedBrands.includes(name) &&
-        state.selectedBrands.concat(name),
-    }));
-  };
-
-  removeSelectedBrandList = name => {
-    this.setState(state => ({
-      selectedBrands: state.selectedBrands.filter(
-        brandName => brandName !== name,
-      ),
-    }));
-  };
-
-  changeSelectedBrand = (add, name) => {
-    // selectedBrand 를 브랜드 버튼의 상태에 따라 알맞은 함수를 연결해주는 함수
-
-    // add
-    add && this.addSelectedBrandList(name);
-    //remove
-    !add && this.removeSelectedBrandList(name);
-  };
-
-  brandButtonHandler = name => {
-    // 브랜드 버튼을 클릭하면 실행됨
-
-    this.changeSelectedBrand(!this.state.selectedBrands.includes(name), name);
-    this.makeClickedItemFiltered(!this.state.checkBoxState);
-  };
-
-  makeClickedItemFiltered = flag => {
-    // clickedItems 중 선택된 브랜드만 보이게 필터링 하는 함수
-
+  setFilteredItems = () =>
     this.setState(state => ({
       ...state,
-      filteredItems: state.clickedItems.filter(({ brand }) =>
-        state.selectedBrands.includes(getEnglishName[brand]),
+      filteredItems: getFilteredItems(
+        state.clickedItems,
+        state.selectedFilters,
       ),
     }));
-
-    !flag &&
-      this.setState(state => ({
-        ...state,
-        filteredItems: state.filteredItems.filter(
-          ({ isInterested }) => isInterested,
-        ),
-      }));
-  };
-
-  /* Input(checkbox, radio) 관련 기능 */
-  changeCheckBoxState = () => {
-    // checkBoxState 상태를 변경하는 함수
-
+  setSelectedFilters = name => {
     this.setState(state => ({
       ...state,
-      checkBoxState: !state.checkBoxState,
+      selectedFilters: addUniqueData(state.selectedFilters, name),
     }));
+    this.setFilteredItems();
   };
-  showOnlyInterestedItem = ({ isInterested }) => isInterested === true;
-
-  hideNoInterest = () => {
-    // 관심 없는 상품을 필터링하는 함수
-    const isFiltered = this.state.filteredItems.length > 0;
-    const { checkBoxState } = this.state;
-    if (isFiltered) {
-      // 필터된 거
-      // 체크 해제
-      checkBoxState && this.makeClickedItemFiltered(checkBoxState);
-      // 체크함
-      !checkBoxState &&
-        this.setState(state => ({
-          ...state,
-          filteredItems: state.filteredItems.filter(item =>
-            this.showOnlyInterestedItem(item),
-          ),
-        }));
-    } else {
-      // 전체 목록
-      checkBoxState && this.makeClickedItemFiltered(checkBoxState);
-      !checkBoxState &&
-        this.setState(state => ({
-          ...state,
-          filteredItems: state.clickedItems.filter(item =>
-            this.showOnlyInterestedItem(item),
-          ),
-        }));
-    }
-  };
-
-  HideNoInterestHandler = () => {
-    // 관심 없는 상품 숨기기 클릭시 실행
-
-    this.changeCheckBoxState();
-    this.hideNoInterest();
-  };
-
-  sortRecentView = () => {
-    const isFiltered = this.state.filteredItems.length > 0;
-    const { checkBoxState, selectedBrands } = this.state;
-    this.getClickedItem();
-    if (isFiltered && checkBoxState) {
-      selectedBrands.length > 0 &&
-        this.setState(state => ({
-          ...state,
-          filteredItems: state.clickedItems.filter(
-            ({ brand, isInterested }) =>
-              state.selectedBrands.includes(getEnglishName[brand]) &&
-              isInterested,
-          ),
-        }));
-
-      !(selectedBrands.length > 0) &&
-        this.setState(state => ({
-          ...state,
-          filteredItems: state.clickedItems.filter(
-            ({ isInterested }) => isInterested,
-          ),
-        }));
-    } else {
-      this.makeClickedItemFiltered(!checkBoxState);
-    }
-  };
-
-  sortWithPrice = items => items.sort((a, b) => a.price - b.price);
-
-  sortRowPrice = () => {
-    const isFiltered = this.state.filteredItems.length > 0;
-    // 필터된 거
-    isFiltered &&
-      this.setState(state => ({
-        ...state,
-        filteredItems: this.sortWithPrice(state.filteredItems),
-      }));
-    // 전체 목록
-    !isFiltered &&
-      this.setState(state => ({
-        ...state,
-        clickedItems: this.sortWithPrice(state.clickedItems),
-      }));
-  };
-
-  checkBoxHandler = e => {
-    // 클릭한 input 태그에 따라 알맞게 연결해주는 함수
-    const { value } = e.currentTarget;
-    switch (value) {
-      case 'hide_no_interest':
-        this.HideNoInterestHandler();
-        break;
-      case 'recent_view':
-        this.sortRecentView();
-        break;
-      case 'row_price':
-        this.sortRowPrice();
-        break;
-      default:
-        break;
-    }
-  };
-
   getClickedItem = () => {
     // 로컬호스트에서 최근 본 아이템 데이터를 받아오는 함수
     const clickedItems = localStorageHelper.getItem(localStorageKey['VIEWD']);
@@ -203,6 +54,7 @@ class RecentListPage extends Component {
           ...state,
           isLoading: false,
           clickedItems,
+          filteredItems: clickedItems,
         }));
     }, 700);
   };
@@ -212,27 +64,18 @@ class RecentListPage extends Component {
   }
 
   render() {
-    const { isLoading, clickedItems } = this.state;
+    const { isLoading, filteredItems } = this.state;
     return (
       <>
         <Filter
-          brandButtonHandler={this.brandButtonHandler}
-          checkBoxHandler={this.checkBoxHandler}
-          selectedBrands={this.state.selectedBrands}
+          selectedFilters={this.state.selectedFilters}
+          setSelectedFilters={this.setSelectedFilters}
         />
         {isLoading && <div>로딩 중 입니다.</div>}
-        {!isLoading && clickedItems.length === 0 && (
-          <div>클릭한 아이템이 없습니다.</div>
+        {!isLoading && filteredItems.length === 0 && (
+          <div>아이템이 없습니다.</div>
         )}
-        {!isLoading && (
-          <RecentProductList
-            products={
-              this.state.filteredItems.length > 0
-                ? this.state.filteredItems
-                : this.state.clickedItems
-            }
-          />
-        )}
+        {!isLoading && <RecentProductList products={filteredItems} />}
       </>
     );
   }
