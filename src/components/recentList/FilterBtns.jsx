@@ -25,9 +25,7 @@ class FilterBtns extends Component {
       getSortedRecent,
       getSortedLowPrice,
     } = this.props;
-    const isActive = name => {
-      return selectedFilters.length > 0 && selectedFilters.includes(name);
-    };
+    const isActive = name => selectedFilters.includes(name);
     return (
       <FilterBtnsStyle>
         <div>
